@@ -25,9 +25,7 @@
 
                     @if(Auth::user()->role === 'admin')
                     <!-- Admin Section -->
-                    <li class="menu-header mt-3">
-                        <span class="text-muted small text-uppercase fw-bold">Admin</span>
-                    </li>
+
                     <li class="menu-item {{ request()->routeIs('dashboard.users') ? 'active' : '' }}">
                         <a href="{{ route('dashboard.users') }}" class="menu-link" data-title="Users">
                             <i class="bi bi-people"></i>
@@ -43,9 +41,6 @@
                     @endif
 
                     <!-- Content Section -->
-                    <li class="menu-header mt-3">
-                        <span class="text-muted small text-uppercase fw-bold">Content</span>
-                    </li>
                     <li class="menu-item {{ request()->routeIs('dashboard.posts') ? 'active' : '' }}">
                         <a href="{{ route('dashboard.posts') }}" class="menu-link" data-title="Posts">
                             <i class="bi bi-file-earmark-text"></i>
