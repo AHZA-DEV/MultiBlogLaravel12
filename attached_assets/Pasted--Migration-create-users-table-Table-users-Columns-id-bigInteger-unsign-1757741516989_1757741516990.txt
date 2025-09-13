@@ -1,0 +1,126 @@
+# Migration: create_users_table
+
+- **Table**: users
+- **Columns**:
+  - `id` : bigInteger, unsigned, auto_increment, primary key
+  - `name` : string(255), not null
+  - `email` : string(255), unique, not null
+  - `email_verified_at` : timestamp, nullable
+  - `password` : string(255), not null
+  - `role` : enum('admin', 'user'), default: 'user'
+  - `avatar` : string(255), nullable
+  - `bio` : text, nullable
+  - `status` : enum('active', 'inactive'), default: 'active'
+  - `remember_token` : string(100), nullable
+  - `created_at` : timestamp, nullable
+  - `updated_at` : timestamp, nullable
+
+- **Indexes**:
+  - Primary key: `id`
+  - Unique: `email`
+  - Index: `role`
+  - Index: `status`
+
+- **Foreign Keys**: -
+
+
+# Migration: create_categories_table
+
+- **Table**: categories
+- **Columns**:
+  - `id` : bigInteger, unsigned, auto_increment, primary key
+  - `name` : string(255), not null
+  - `slug` : string(255), unique, not null
+  - `description` : text, nullable
+  - `parent_id` : bigInteger, unsigned, nullable, default: null
+  - `created_by` : bigInteger, unsigned, not null
+  - `status` : enum('active', 'inactive'), default: 'active'
+  - `created_at` : timestamp, nullable
+  - `updated_at` : timestamp, nullable
+
+- **Indexes**:
+  - Primary key: `id`
+  - Unique: `slug`
+  - Index: `parent_id`
+  - Index: `created_by`
+  - Index: `status`
+
+- **Foreign Keys**:
+  - `parent_id` references `categories(id)` onDelete('SET NULL')
+  - `created_by` references `users(id)` onDelete('CASCADE')
+
+
+# Migration: create_posts_table
+
+- **Table**: posts
+- **Columns**:
+  - `id` : bigInteger, unsigned, auto_increment, primary key
+  - `title` : string(255), not null
+  - `slug` : string(255), unique, not null
+  - `content` : text, not null
+  - `excerpt` : text, nullable
+  - `featured_image` : string(255), nullable
+  - `status` : enum('published', 'draft', 'pending'), default: 'draft'
+  - `published_at` : timestamp, nullable
+  - `author_id` : bigInteger, unsigned, not null
+  - `category_id` : bigInteger, unsigned, nullable
+  - `views` : integer, unsigned, default: 0
+  - `meta_title` : string(255), nullable
+  - `meta_description` : text, nullable
+  - `created_at` : timestamp, nullable
+  - `updated_at` : timestamp, nullable
+
+- **Indexes**:
+  - Primary key: `id`
+  - Unique: `slug`
+  - Index: `author_id`
+  - Index: `category_id`
+  - Index: `status`
+  - Index: `published_at`
+
+- **Foreign Keys**:
+  - `author_id` references `users(id)` onDelete('CASCADE')
+  - `category_id` references `categories(id)` onDelete('SET NULL')
+
+
+# Migration: create_tags_table
+
+- **Table**: tags
+- **Columns**:
+  - `id` : bigInteger, unsigned, auto_increment, primary key
+  - `name` : string(255), not null
+  - `slug` : string(255), unique, not null
+  - `description` : text, nullable
+  - `created_by` : bigInteger, unsigned, not null
+  - `created_at` : timestamp, nullable
+  - `updated_at` : timestamp, nullable
+
+- **Indexes**:
+  - Primary key: `id`
+  - Unique: `slug`
+  - Index: `created_by`
+
+- **Foreign Keys**:
+  - `created_by` references `users(id)` onDelete('CASCADE')
+
+
+
+# Migration: create_post_tag_table
+
+- **Table**: post_tag
+- **Columns**:
+  - `id` : bigInteger, unsigned, auto_increment, primary key
+  - `post_id` : bigInteger, unsigned, not null
+  - `tag_id` : bigInteger, unsigned, not null
+  - `created_at` : timestamp, nullable
+  - `updated_at` : timestamp, nullable
+
+- **Indexes**:
+  - Primary key: `id`
+  - Unique: `post_id_tag_id` (composite index)
+  - Index: `post_id`
+  - Index: `tag_id`
+
+- **Foreign Keys**:
+  - `post_id` references `posts(id)` onDelete('CASCADE')
+  - `tag_id` references `tags(id)` onDelete('CASCADE')
