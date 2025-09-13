@@ -96,10 +96,17 @@ Aplikasi akan berjalan di `http://localhost:8000`
 ### 3. Instalasi untuk Replit
 
 1. **Fork/Import** repository ini ke Replit
-2. **Install Dependencies** (otomatis saat pertama kali dibuka)
-3. **Run** dengan menekan tombol Run atau menjalankan workflow
+2. **Setup Database**: Buat file database SQLite
+   ```bash
+   touch database/database.sqlite
+   ```
+3. **Run Migrations & Seeding**:
+   ```bash
+   php artisan migrate --seed
+   ```
+4. **Start Application**: Klik tombol "Run" atau jalankan workflow yang sudah dikonfigurasi
 
-Environment variables sudah dikonfigurasi otomatis untuk Replit.
+Workflow akan otomatis menjalankan Laravel server dengan Vite untuk development.
 
 ## 🗄️ Database Seeding
 
@@ -191,10 +198,10 @@ DB_DATABASE=/path/to/database.sqlite
 ```
 
 ### Replit Configuration
-File `.replit` dan `replit.nix` sudah dikonfigurasi untuk:
-- Auto-install dependencies
-- Setup database
-- Run Laravel server dengan Vite
+Workflow sudah dikonfigurasi untuk:
+- Menjalankan Laravel server di port 5000
+- Menggunakan Vite untuk asset compilation
+- Environment variables untuk Replit
 
 ## 🤝 Kontribusi
 

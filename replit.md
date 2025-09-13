@@ -178,7 +178,7 @@ Aplikasi dibangun dengan Laravel 12 yang menyediakan:
 ### Frontend Architecture
 Frontend menggunakan pendekatan kompilasi asset modern:
 - **Vite Build Tool**: Server development cepat dan build production yang optimal
-- **Bootstrap 5**: Framework CSS yang responsive dan mobile-first
+- **Bootstrap 5**: Framework CSS yang responsive dan component-based
 - **Bootstrap Icons**: Icon library yang konsisten
 - **JavaScript Modules**: Sistem module ES6+ dengan hot module replacement
 - **Asset Pipeline**: Pemrosesan otomatis CSS dan JavaScript
@@ -193,7 +193,7 @@ Aplikasi dikonfigurasi untuk berbagai opsi database:
 ### UI Components
 Interface dashboard meliputi:
 - **Responsive Design**: Pendekatan mobile-first dengan Bootstrap 5
-- **Theme System**: Dukungan light/dark mode dengan localStorage persistence
+- **Navigation System**: Sidebar dinamis berdasarkan role user
 - **Interactive Elements**: Fungsi dashboard yang didukung JavaScript
 - **Component Architecture**: Komponen UI yang dapat digunakan ulang
 
@@ -304,7 +304,7 @@ Interface dashboard meliputi:
 ### Frontend Build Tools
 - **Vite**: Build tool modern dengan hot module replacement
 - **Laravel Vite Plugin**: Integrasi Laravel untuk kompilasi asset Vite
-- **Bootstrap 5**: Framework CSS utility-first
+- **Bootstrap 5**: Framework CSS yang responsive dan component-based
 - **Bootstrap Icons**: Icon library untuk interface
 - **Axios**: HTTP client berbasis promise untuk browser requests
 
@@ -455,7 +455,7 @@ LOG_LEVEL=debug
 - [ ] Article search functionality  
 - [ ] User profile management
 - [ ] Email notifications
-- [ ] Article scheduling
+- [ ] Theme system (light/dark mode)
 
 ### Phase 3 (Future)
 - [ ] API endpoints for mobile app
