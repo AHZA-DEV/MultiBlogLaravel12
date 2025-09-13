@@ -1,61 +1,226 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Blog Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi blog modern yang dibangun dengan Laravel 12 dan Bootstrap 5. Fitur lengkap dengan sistem autentikasi berbasis role, dashboard admin, dan blog public yang responsif.
 
-## About Laravel
+## ✨ Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🔐 Sistem Autentikasi
+- Login dan logout dengan validasi
+- Dashboard berbasis role (Admin vs User)
+- Sistem middleware untuk proteksi route
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 👥 Manajemen User dan Role
+- **Admin**: Akses penuh ke semua fitur (Users, Categories, Posts, Tags)
+- **User**: Akses terbatas (Posts dan Tags saja)
+- Dynamic sidebar berdasarkan role
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📝 Manajemen Blog
+- **Posts**: CRUD artikel dengan editor markdown
+- **Categories**: Kategori artikel dengan slug otomatis
+- **Tags**: System tagging untuk artikel
+- **Views tracking**: Pencatatan jumlah pembaca
 
-## Learning Laravel
+### 🌐 Blog Public
+- **Landing page**: Tampilan semua artikel dengan pagination
+- **Detail post**: Artikel lengkap dengan markdown rendering
+- **Related posts**: Artikel terkait berdasarkan kategori
+- **Social sharing**: Tombol share media sosial
+- **Responsive design**: Optimal di semua device
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Teknologi yang Digunakan
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Backend**: Laravel 12.0 (PHP 8.2+)
+- **Frontend**: Bootstrap 5.3 + Bootstrap Icons
+- **Database**: SQLite (development)
+- **Build Tool**: Vite
+- **Package Manager**: Composer & NPM
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📋 Persyaratan Sistem
 
-## Laravel Sponsors
+### Local Development
+- PHP 8.2 atau lebih tinggi
+- Composer
+- Node.js & NPM
+- SQLite
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Replit Environment
+- Sudah terinclude semua dependency yang diperlukan
 
-### Premium Partners
+## 🚀 Instalasi
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 1. Clone Repository
 
-## Contributing
+```bash
+git clone https://github.com/username/laravel-blog.git
+cd laravel-blog
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. Instalasi untuk Local Development
 
-## Code of Conduct
+#### Install PHP Dependencies
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Install Node Dependencies
+```bash
+npm install
+```
 
-## Security Vulnerabilities
+#### Setup Environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Setup Database
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-## License
+#### Build Assets
+```bash
+npm run build
+# atau untuk development
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Jalankan Server
+```bash
+php artisan serve
+```
+
+Aplikasi akan berjalan di `http://localhost:8000`
+
+### 3. Instalasi untuk Replit
+
+1. **Fork/Import** repository ini ke Replit
+2. **Install Dependencies** (otomatis saat pertama kali dibuka)
+3. **Run** dengan menekan tombol Run atau menjalankan workflow
+
+Environment variables sudah dikonfigurasi otomatis untuk Replit.
+
+## 🗄️ Database Seeding
+
+Aplikasi include sample data untuk testing:
+
+### Test Accounts
+```
+Admin:
+Email: admin@example.com
+Password: password123
+
+User: 
+Email: user@example.com  
+Password: password123
+```
+
+### Sample Content
+- 2 Kategori (Technology, Business)
+- 3 Tags (Web Development, Laravel, Startup)
+- 3 Artikel lengkap dengan konten markdown
+
+### Manual Seeding
+```bash
+php artisan db:seed --class=UserSeeder
+php artisan db:seed --class=PostSeeder
+```
+
+## 📖 Cara Penggunaan
+
+### 1. Akses Public Blog
+- Kunjungi `/` untuk melihat semua artikel
+- Klik artikel untuk membaca konten lengkap
+- Gunakan navigasi untuk pindah antar halaman
+
+### 2. Login ke Dashboard
+- Kunjungi `/login`
+- Gunakan kredensial test account
+- Dashboard akan menampilkan menu sesuai role
+
+### 3. Manajemen Konten (Admin)
+- **Users**: Kelola pengguna dan role
+- **Categories**: Buat dan edit kategori
+- **Posts**: Tulis dan publish artikel
+- **Tags**: Kelola tag artikel
+
+### 4. Konten Creation (User)
+- **Posts**: Tulis artikel (perlu approval admin)
+- **Tags**: Buat tag baru
+
+## 🏗️ Struktur Aplikasi
+
+```
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── AuthController.php      # Autentikasi
+│   │   ├── DashboardController.php # Dashboard
+│   │   └── WelcomeController.php   # Public blog
+│   └── Models/
+│       ├── User.php               # User model
+│       ├── Post.php               # Post model
+│       ├── Category.php           # Category model
+│       └── Tag.php                # Tag model
+├── resources/views/
+│   ├── layouts/
+│   │   ├── app.blade.php          # Main layout
+│   │   ├── sidebar.blade.php      # Sidebar component
+│   │   └── navbar.blade.php       # Navbar component
+│   ├── auth/                      # Auth views
+│   ├── dashboard/                 # Dashboard views
+│   ├── post/
+│   │   └── show.blade.php         # Post detail view
+│   └── welcome.blade.php          # Landing page
+└── database/
+    ├── migrations/                # Database migrations
+    └── seeders/                   # Database seeders
+```
+
+## 🔧 Konfigurasi
+
+### Environment Variables Penting
+```env
+APP_NAME="Laravel Blog"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+DB_DATABASE=/path/to/database.sqlite
+```
+
+### Replit Configuration
+File `.replit` dan `replit.nix` sudah dikonfigurasi untuk:
+- Auto-install dependencies
+- Setup database
+- Run Laravel server dengan Vite
+
+## 🤝 Kontribusi
+
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 🐛 Bug Reports
+
+Jika menemukan bug atau issue, silakan buat [GitHub Issue](https://github.com/username/laravel-blog/issues) dengan detail:
+- Environment (local/Replit)
+- Steps to reproduce
+- Expected vs actual behavior
+- Screenshots (jika perlu)
+
+## 📞 Support
+
+- GitHub Issues: [https://github.com/username/laravel-blog/issues](https://github.com/username/laravel-blog/issues)
+- Documentation: [README.md](README.md)
+
+---
+
+**Happy Coding! 🚀**
