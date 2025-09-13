@@ -14,13 +14,13 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+
         if ($user->role === 'admin') {
             $posts = Post::with(['author', 'category'])->paginate(10);
         } else {
             $posts = Post::where('author_id', $user->id)->with(['category'])->paginate(10);
         }
-        
+
         return view('dashboard.posts.index', compact('posts'));
     }
 
@@ -43,6 +43,7 @@ class PostController extends Controller
             'tags.*' => 'exists:tags,id',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:255',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $post = Post::create([
@@ -58,6 +59,12 @@ class PostController extends Controller
             'published_at' => $request->status === 'published' ? now() : null,
         ]);
 
+        if ($request->hasFile('featured_image')) {
+            $imagePath = $request->file('featured_image')->store('postImage', 'public');
+            $post->featured_image = $imagePath;
+            $post->save();
+        }
+
         if ($request->tags) {
             $post->tags()->sync($request->tags);
         }
@@ -68,7 +75,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $user = Auth::user();
-        
+
         if ($user->role !== 'admin' && $post->author_id !== $user->id) {
             abort(403, 'Unauthorized access');
         }
@@ -81,7 +88,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $user = Auth::user();
-        
+
         if ($user->role !== 'admin' && $post->author_id !== $user->id) {
             abort(403, 'Unauthorized access');
         }
@@ -96,6 +103,7 @@ class PostController extends Controller
             'tags.*' => 'exists:tags,id',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:255',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $post->update([
@@ -110,6 +118,12 @@ class PostController extends Controller
             'published_at' => $request->status === 'published' && !$post->published_at ? now() : $post->published_at,
         ]);
 
+        if ($request->hasFile('featured_image')) {
+            $imagePath = $request->file('featured_image')->store('postImage', 'public');
+            $post->featured_image = $imagePath;
+            $post->save();
+        }
+
         if ($request->tags) {
             $post->tags()->sync($request->tags);
         }
@@ -120,7 +134,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $user = Auth::user();
-        
+
         if ($user->role !== 'admin' && $post->author_id !== $user->id) {
             abort(403, 'Unauthorized access');
         }

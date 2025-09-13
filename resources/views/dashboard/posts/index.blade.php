@@ -68,8 +68,15 @@
                                 @forelse($posts as $post)
                                                         <tr>
                                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                                <div class="text-sm font-medium text-gray-900">{{ $post->title }}</div>
-                                                                <div class="text-sm text-gray-500">{{ Str::limit($post->excerpt, 50) }}</div>
+                                                                <div class="d-flex align-items-center">
+                                                                    @if($post->featured_image)
+                                                                    <img src="{{ asset('storage/' . $post->featured_image) }}" 
+                                                                         alt="{{ $post->title }}" 
+                                                                         class="rounded me-2" 
+                                                                         style="width: 40px; height: 40px; object-fit: cover;">
+                                                                    @endif
+                                                                    <span>{{ $post->title }}</span>
+                                                                </div>
                                                             </td>
                                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                                 {{ $post->author->name ?? 'Unknown' }}
@@ -80,8 +87,8 @@
                                                             <td class="px-6 py-4 whitespace-nowrap">
                                                                 <span
                                                                     class="inline-flex px-2 py-1 text-xs font-semibold rounded-full 
-                                                                                            {{ $post->status === 'published' ? 'bg-green-100 text-green-800' :
-                                    ($post->status === 'draft' ? 'bg-gray-100 text-gray-800' : 'bg-yellow-100 text-yellow-800') }}">
+                                                                                            {{ $post->status === 'published' ? 'bg-success  ' :
+                                    ($post->status === 'draft' ? 'bg-muted   text-gray-800' : 'bg-warning text-yellow-800') }}">
                                                                     {{ ucfirst($post->status) }}
                                                                 </span>
                                                             </td>

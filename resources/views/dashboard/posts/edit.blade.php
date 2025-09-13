@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Edit Post')
@@ -20,7 +19,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('dashboard.posts.update', $post) }}" method="POST">
+                <form action="{{ route('dashboard.posts.update', $post) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     
@@ -43,9 +42,26 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="content" class="form-label">Content</label>
-                        <textarea class="form-control @error('content') is-invalid @enderror" 
-                                  id="content" name="content" rows="10" required>{{ old('content', $post->content) }}</textarea>
+                        <label for="featured_image" class="form-label">Featured Image</label>
+                        @if($post->featured_image)
+                        <div class="mb-2">
+                            <img src="{{ asset('storage/' . $post->featured_image) }}" alt="Current featured image" class="img-thumbnail" style="max-height: 200px;">
+                            <div class="form-text">Current featured image</div>
+                        </div>
+                        @endif
+                        <input type="file" class="form-control @error('featured_image') is-invalid @enderror" 
+                               id="featured_image" name="featured_image" accept="image/*">
+                        @error('featured_image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="form-text">Upload a new image to replace current one (JPG, PNG, GIF - Max 2MB)</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Content</label> 
+                        <textarea class="form-control" 
+                                  id="content" name="content" rows="10" readonly>{{ old('content', $post->content) }}</textarea>
+                        <trix-editor input="content" class="form-control @error('content') is-invalid @enderror"></trix-editor>
                         @error('content')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -125,3 +141,5 @@
     </div>
 </div>
 @endsection
+
+

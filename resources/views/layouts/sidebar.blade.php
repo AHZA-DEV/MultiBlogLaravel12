@@ -1,11 +1,40 @@
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <div class="d-flex align-items-center">
+                <div class="card-title d-flex align-items-center">
                     <i class="bi bi-speedometer2 text-primary me-2"></i>
                     <span class="fw-bold">{{ config('app.name') }}</span>
                 </div>
                 <div class="mt-2">
                     <small class="text-muted">Welcome, {{ Auth::user()->name }}!</small>
+                </div>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="sidebar-profile p-3 border-bottom">
+                <div class="d-flex align-items-center">
+                    <div class="profile-avatar me-3">
+                        @if(Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" 
+                                 alt="{{ Auth::user()->name }}" 
+                                 class="rounded-circle"
+                                 style="width: 50px; height: 50px; object-fit: cover;">
+                        @else
+                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                 style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="profile-info flex-grow-1">
+                        <div class="fw-bold card-title">{{ Auth::user()->name }}</div>
+                        <div class="text-muted small">{{ ucfirst(Auth::user()->role) }}</div>
+                        <div class="text-muted small">{{ Auth::user()->email }}</div>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <a href="{{ route('dashboard.profile.show') }}" class="btn btn-outline-primary btn-sm w-100">
+                        <i class="bi bi-person-gear me-1"></i>View Profile
+                    </a>
                 </div>
             </div>
 
@@ -34,6 +63,8 @@
                         </a>
                     </li>
                     @endif
+
+                    <!-- Profile Section -->
 
                     <!-- Content Section -->
                     <li class="menu-item {{ request()->routeIs('dashboard.posts') ? 'active' : '' }}">

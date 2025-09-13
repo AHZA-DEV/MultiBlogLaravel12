@@ -713,6 +713,26 @@ body {
     background: var(--text-muted);
 }
 
+/* Profile Section Styling */
+.sidebar-profile {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.profile-avatar img {
+    border: 3px solid var(--primary-color);
+}
+
+.profile-info {
+    min-width: 0;
+}
+
+.profile-info div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Loading states */
 .loading {
     opacity: 0.6;

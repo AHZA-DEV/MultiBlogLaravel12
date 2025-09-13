@@ -13,16 +13,18 @@ use App\Http\Controllers\TagController;
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/post/{slug}', [WelcomeController::class, 'show'])->name('post.show');
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+});
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
     // Posts - accessible by both admin and users
     Route::resource('dashboard/posts', PostController::class)->names([
         'index' => 'dashboard.posts',
@@ -32,7 +34,7 @@ Route::middleware('auth')->group(function () {
         'update' => 'dashboard.posts.update',
         'destroy' => 'dashboard.posts.destroy',
     ]);
-    
+
     // Tags - accessible by both admin and users
     Route::resource('dashboard/tags', TagController::class)->names([
         'index' => 'dashboard.tags',
@@ -42,7 +44,12 @@ Route::middleware('auth')->group(function () {
         'update' => 'dashboard.tags.update',
         'destroy' => 'dashboard.tags.destroy',
     ]);
-    
+
+    // Profile routes
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('dashboard.profile.show');
+    Route::get('/profile/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('dashboard.profile.edit');
+    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('dashboard.profile.update');
+
     // Admin-only routes
     Route::middleware('role:admin')->group(function () {
         // Users management
@@ -54,7 +61,7 @@ Route::middleware('auth')->group(function () {
             'update' => 'dashboard.users.update',
             'destroy' => 'dashboard.users.destroy',
         ]);
-        
+
         // Categories management
         Route::resource('dashboard/categories', CategoryController::class)->names([
             'index' => 'dashboard.categories',

@@ -16,9 +16,16 @@
                         
                         <div class="dropdown">
                             <button class="btn btn-link d-flex align-items-center" data-bs-toggle="dropdown">
-                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
-                                    <span class="text-white fw-bold">{{ substr(Auth::user()->name, 0, 1) }}</span>
-                                </div>
+                                @if(Auth::user()->avatar)
+                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" 
+                                         alt="{{ Auth::user()->name }}" 
+                                         class="rounded-circle me-2"
+                                         style="width: 32px; height: 32px; object-fit: cover;">
+                                @else
+                                    <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+                                        <span class="text-white fw-bold">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                                 <span class="me-2">{{ Auth::user()->name }}</span>
                                 <i class="bi bi-chevron-down"></i>
                             </button>

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Tonysm\RichTextLaravel\Models\Traits\HasRichText;
 
 class Post extends Model
 {
+    use HasRichText;
+
     protected $fillable = [
         'title',
         'slug',
@@ -19,6 +22,14 @@ class Post extends Model
         'views',
         'meta_title',
         'meta_description',
+    ];
+
+    protected $richTextFields = [
+        'content',
+    ];
+
+    protected $richTextAttributes = [
+        'content',
     ];
 
     protected function casts(): array

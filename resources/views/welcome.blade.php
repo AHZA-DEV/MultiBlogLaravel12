@@ -1,22 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }} - Platform Blog Terdepan</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -40,21 +39,21 @@
             }
         }
     </script>
-    
+
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         .card-hover {
             transition: all 0.3s ease;
         }
-        
+
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        
+
         .hero-pattern {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
@@ -74,14 +73,14 @@
                         <span class="font-bold text-xl text-gray-900">{{ config('app.name') }}</span>
                     </div>
                 </div>
-                
+
                 <!-- Navigation Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#beranda" class="text-gray-900 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"></a>
                     </div>
                 </div>
-                
+
                 <!-- Auth Buttons -->
                 <div class="flex items-center space-x-4">
                     @auth
@@ -119,7 +118,7 @@
                     Temukan wawasan, tutorial, dan cerita inspiratif dari komunitas penulis terbaik. 
                     Tingkatkan pengetahuan Anda dengan konten berkualitas tinggi.
                 </p>
-                
+
                 <!-- Stats -->
                 <div class="mt-16 gap-8 max-w-2xl mx-auto">
                     <div class="text-center">
@@ -142,20 +141,19 @@
                     Baca artikel terbaru dan terpopuler dari para ahli di berbagai bidang
                 </p>
             </div>
-            
+
             @if($posts->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($posts->take(6) as $post)
-                <article class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
-                    @if($post->featured_image)
-                    <div class="h-48 bg-gradient-to-r from-purple-400 to-primary-400"></div>
-                    @else
-                    <div class="h-48 bg-gradient-to-r from-purple-400 to-primary-400 flex items-center justify-center">
-                        <i class="ri-article-line text-white text-4xl"></i>
-                    </div>
-                    @endif
-                    
-                    <div class="p-6">
+                <article class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200 overflow-hidden">
+                        @if($post->featured_image)
+                        <div class="relative h-48 bg-gray-200">
+                            <img src="{{ asset('storage/' . $post->featured_image) }}" 
+                                 alt="{{ $post->title }}" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        @endif
+                        <div class="p-6">
                         @if($post->category)
                         <div class="flex items-center mb-3">
                             <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-xs font-medium">
@@ -163,22 +161,28 @@
                             </span>
                         </div>
                         @endif
-                        
+
                         <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                             <a href="{{ url('/post/' . $post->slug) }}" class="hover:text-primary-600 transition-colors">
                                 {{ $post->title }}
                             </a>
                         </h3>
-                        
+
                         <p class="text-gray-600 mb-4 line-clamp-3">
                             {{ $post->excerpt }}
                         </p>
-                        
+
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                                    <i class="ri-user-line text-gray-600 text-sm"></i>
-                                </div>
+                                @if($post->author->avatar)
+                                    <img src="{{ asset('storage/' . $post->author->avatar) }}" 
+                                         alt="{{ $post->author->name }}" 
+                                         class="w-8 h-8 rounded-full object-cover">
+                                @else
+                                    <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">{{ substr($post->author->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                                 <div>
                                     <div class="text-sm font-medium text-gray-900">{{ $post->author->name }}</div>
                                     <div class="text-xs text-gray-500">{{ $post->published_at->format('d M Y') }}</div>
@@ -193,7 +197,7 @@
                 </article>
                 @endforeach
             </div>
-            
+
             <div class="text-center mt-12">
                 <a href="#" class="bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors inline-flex items-center">
                     Lihat Semua Artikel
@@ -239,7 +243,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div>
                     <h4 class="font-semibold mb-4">Platform</h4>
                     <ul class="space-y-2 text-gray-400">
@@ -249,7 +253,7 @@
                         <li><a href="#" class="hover:text-white transition-colors">Trending</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h4 class="font-semibold mb-4">Bantuan</h4>
                     <ul class="space-y-2 text-gray-400">
@@ -260,7 +264,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
                 <p>&copy; {{ date('Y') }} {{ config('app.name') }}. Semua hak dilindungi.</p>
             </div>

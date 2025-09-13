@@ -90,6 +90,16 @@
             <div class="col-lg-8">
                 <!-- Post Header -->
                 <div class="mb-4">
+                    <!-- Featured Image -->
+                    @if($post->featured_image)
+                    <div class="mb-4">
+                        <img src="{{ asset('storage/' . $post->featured_image) }}" 
+                             alt="{{ $post->title }}" 
+                             class="img-fluid rounded shadow-sm w-100" 
+                             style="max-height: 400px; object-fit: cover;">
+                    </div>
+                    @endif
+                    
                     <!-- Category -->
                     @if($post->category)
                     <div class="mb-3">
@@ -133,7 +143,7 @@
                 
                 <!-- Post Content -->
                 <div class="post-content">
-                    {!! \Illuminate\Support\Str::of($post->content)->markdown() !!}
+                    {!! $post->content !!}
                 </div>
                 
                 <!-- Social Sharing -->
@@ -164,9 +174,16 @@
                 <!-- Author Info -->
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                            <span class="text-white fw-bold fs-2">{{ substr($post->author->name, 0, 1) }}</span>
-                        </div>
+                        @if($post->author->avatar)
+                            <img src="{{ asset('storage/' . $post->author->avatar) }}" 
+                                 alt="{{ $post->author->name }}" 
+                                 class="rounded-circle mx-auto mb-3"
+                                 style="width: 80px; height: 80px; object-fit: cover;">
+                        @else
+                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                                <span class="text-white fw-bold fs-2">{{ substr($post->author->name, 0, 1) }}</span>
+                            </div>
+                        @endif
                         <h5 class="card-title">{{ $post->author->name }}</h5>
                         @if($post->author->bio)
                         <p class="card-text text-muted">{{ $post->author->bio }}</p>

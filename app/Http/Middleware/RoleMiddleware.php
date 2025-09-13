@@ -17,13 +17,17 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (!Auth::check()) {
-            return redirect('/login');
+            // Clear any existing session data
+            $request->session()->flush();
+            return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
         $user = Auth::user();
         
-        if ($user->role !== $role) {
-            abort(403, 'Unauthorized access');
+        if (!$user || $user->role !== $role) {
+            Auth::logout();
+            $request->session()->flush();
+            abort(403, 'Akses tidak diizinkan. Anda tidak memiliki hak akses yang diperlukan.');
         }
 
         return $next($request);

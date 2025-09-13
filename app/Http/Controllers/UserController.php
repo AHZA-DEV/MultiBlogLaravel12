@@ -36,16 +36,24 @@ class UserController extends Controller
             'role' => 'required|in:admin,user',
             'status' => 'required|in:active,inactive',
             'bio' => 'nullable|string|max:1000',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        User::create([
+        $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status,
             'bio' => $request->bio,
-        ]);
+        ];
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $userData['avatar'] = $avatarPath;
+        }
+
+        User::create($userData);
 
         return redirect()->route('dashboard.users')->with('success', 'User created successfully.');
     }
@@ -67,6 +75,7 @@ class UserController extends Controller
             'role' => 'required|in:admin,user',
             'status' => 'required|in:active,inactive',
             'bio' => 'nullable|string|max:1000',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = [
@@ -79,6 +88,11 @@ class UserController extends Controller
 
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
+        }
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $data['avatar'] = $avatarPath;
         }
 
         $user->update($data);

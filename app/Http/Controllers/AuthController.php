@@ -31,15 +31,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
             
-            // Clear any old session data
-            $request->session()->flush();
-            $request->session()->regenerate(true);
-            
-            // Login user again after session regenerate
-            Auth::login(Auth::user(), true);
-            
             // Redirect to dashboard after successful login
-            return redirect()->route('dashboard')->with('success', 'Login berhasil!');
+            return redirect()->intended(route('dashboard'))->with('success', 'Login berhasil!');
         }
 
         return back()->withErrors([
@@ -89,7 +82,14 @@ class AuthController extends Controller
         
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $request->session()->flush();
         
-        return redirect('/login');
+        // Clear any remember me cookies
+        if ($request->hasCookie(Auth::getRecallerName())) {
+            $cookie = cookie()->forget(Auth::getRecallerName());
+            return redirect('/login')->withCookie($cookie)->with('success', 'Anda telah berhasil logout.');
+        }
+        
+        return redirect('/login')->with('success', 'Anda telah berhasil logout.');
     }
 }
