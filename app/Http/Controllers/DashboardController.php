@@ -16,8 +16,23 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
-        // Pass user data to the dashboard view
-        return view('dashboard.index', compact('user'));
+        if ($user->role === 'admin') {
+            // Admin sees system-wide statistics
+            $totalUsers = \App\Models\User::count();
+            $totalPosts = \App\Models\Post::count();
+            $totalCategories = \App\Models\Category::count();
+            $totalTags = \App\Models\Tag::count();
+            
+            return view('dashboard.app', compact('totalUsers', 'totalPosts', 'totalCategories', 'totalTags'));
+        } else {
+            // Regular users see their own statistics
+            $myPosts = \App\Models\Post::where('author_id', $user->id)->count();
+            $myTags = \App\Models\Tag::where('created_by', $user->id)->count();
+            $draftPosts = \App\Models\Post::where('author_id', $user->id)->where('status', 'draft')->count();
+            $publishedPosts = \App\Models\Post::where('author_id', $user->id)->where('status', 'published')->count();
+            
+            return view('dashboard.app', compact('myPosts', 'myTags', 'draftPosts', 'publishedPosts'));
+        }
     }
 
     // Admin-only features
