@@ -96,17 +96,21 @@ Aplikasi akan berjalan di `http://localhost:8000`
 ### 3. Instalasi untuk Replit
 
 1. **Fork/Import** repository ini ke Replit
-2. **Setup Database**: Buat file database SQLite
+2. **Install Node Dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Setup Database**: Buat file database SQLite
    ```bash
    touch database/database.sqlite
    ```
-3. **Run Migrations & Seeding**:
+4. **Run Migrations & Seeding**:
    ```bash
    php artisan migrate --seed
    ```
-4. **Start Application**: Klik tombol "Run" atau jalankan workflow yang sudah dikonfigurasi
+5. **Start Application**: Klik tombol "Run" atau jalankan workflow yang sudah dikonfigurasi
 
-Workflow akan otomatis menjalankan Laravel server dengan Vite untuk development.
+Workflow akan otomatis menjalankan Laravel server di port 5000 dengan Vite untuk development. Environment variables sudah dikonfigurasi dalam workflow command.
 
 ## 🗄️ Database Seeding
 
@@ -153,7 +157,7 @@ php artisan db:seed --class=PostSeeder
 - **Tags**: Kelola tag artikel
 
 ### 4. Konten Creation (User)
-- **Posts**: Tulis artikel (perlu approval admin)
+- **Posts**: Tulis artikel (dapat publish langsung)
 - **Tags**: Buat tag baru
 
 ## 🏗️ Struktur Aplikasi

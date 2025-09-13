@@ -345,10 +345,10 @@ VITE_APP_NAME="${APP_NAME}"
 ```
 
 ### Konfigurasi Replit
-File konfigurasi penting:
-- **.replit**: Konfigurasi runtime dan command Replit
-- **replit.nix**: Dependencies sistem dan package
-- **.env**: Environment variables (auto-generated)
+Konfigurasi deployment:
+- **Workflow**: Menggunakan workflow "Laravel App" yang dikonfigurasi untuk menjalankan Laravel server dan Vite
+- **Environment Variables**: Dikonfigurasi langsung dalam workflow command
+- **Database**: SQLite file di database/database.sqlite
 
 ## Testing dan Quality Assurance
 
@@ -384,8 +384,8 @@ Aplikasi include data sample untuk testing:
 ## Deployment dan Production
 
 ### Replit Deployment
-- Otomatis deploy saat push ke repository
-- Environment variables dikonfigurasi otomatis
+- Running melalui workflow yang dikonfigurasi
+- Environment variables dikonfigurasi dalam workflow command
 - Database SQLite untuk development
 - SSL/HTTPS otomatis tersedia
 
