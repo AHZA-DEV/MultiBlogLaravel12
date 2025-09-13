@@ -6,11 +6,6 @@
                 </div>
                 <div class="mt-2">
                     <small class="text-muted">Welcome, {{ Auth::user()->name }}!</small>
-                    <div class="mt-1">
-                        <span class="badge bg-{{ Auth::user()->role === 'admin' ? 'danger' : 'primary' }}">
-                            {{ ucfirst(Auth::user()->role) }}
-                        </span>
-                    </div>
                 </div>
             </div>
 

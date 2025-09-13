@@ -34,9 +34,9 @@
 <div class="row mb-4">
     <!-- Main Illustration Card -->
     <div class="col-lg-5 mb-4">
-        <div class="card main-card h-100">
+        <div class="card h-100">
             <div class="card-body position-relative">
-                <div class="d-flex align-items-center mb-3">
+                <div class="d-flex card-title align-items-center mb-3">
                     <i class="bi bi-person-circle text-primary me-2" style="font-size: 2rem;"></i>
                     <div>
                         <div class="fw-bold">{{ Auth::user()->name }}</div>
@@ -65,75 +65,75 @@
         <div class="row h-100">
             @if(Auth::user()->role === 'admin')
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-blue h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">Total Users</h6>
-                        <h2 class="card-title text-white mb-2">{{ $totalUsers ?? 0 }}</h2>
-                        <small class="text-white-50">Registered users</small>
+                        <h6 class="card-title    mb-2 ">Total Users</h6>
+                        <h2 class="card-title mb-2">{{ $totalUsers ?? 0 }}</h2>
+                        <small class="">Registered users</small>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-purple h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">Total Posts</h6>
-                        <h2 class="card-title text-white mb-2">{{ $totalPosts ?? 0 }}</h2>
-                        <small class="text-white-50">All content</small>
+                        <h6 class="card-title    mb-2 ">Total Posts</h6>
+                        <h2 class="card-title mb-2">{{ $totalPosts ?? 0 }}</h2>
+                        <small class="">All content</small>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-indigo h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">Categories</h6>
-                        <h2 class="card-title text-white mb-2">{{ $totalCategories ?? 0 }}</h2>
-                        <small class="text-white-50">Content categories</small>
+                        <h6 class="card-title    mb-2 ">Categories</h6>
+                        <h2 class="card-title mb-2">{{ $totalCategories ?? 0 }}</h2>
+                        <small class="">Content categories</small>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-orange h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">Total Tags</h6>
-                        <h2 class="card-title text-white mb-2">{{ $totalTags ?? 0 }}</h2>
-                        <small class="text-white-50">All tags</small>
+                        <h6 class="card-title    mb-2 ">Total Tags</h6>
+                        <h2 class="card-title mb-2">{{ $totalTags ?? 0 }}</h2>
+                        <small class="">All tags</small>
                     </div>
                 </div>
             </div>
             @else
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-blue h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">My Posts</h6>
-                        <h2 class="card-title text-white mb-2">{{ $myPosts ?? 0 }}</h2>
-                        <small class="text-white-50">Your content</small>
+                        <h6 class="card-title    mb-2 ">My Posts</h6>
+                        <h2 class="card-title mb-2">{{ $myPosts ?? 0 }}</h2>
+                        <small class="">Your content</small>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-purple h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">My Tags</h6>
-                        <h2 class="card-title text-white mb-2">{{ $myTags ?? 0 }}</h2>
-                        <small class="text-white-50">Your tags</small>
+                        <h6 class="card-title    mb-2 ">My Tags</h6>
+                        <h2 class="card-title mb-2">{{ $myTags ?? 0 }}</h2>
+                        <small class="">Your tags</small>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-indigo h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">Draft Posts</h6>
-                        <h2 class="card-title text-white mb-2">{{ $draftPosts ?? 0 }}</h2>
-                        <small class="text-white-50">Unpublished</small>
+                        <h6 class="card-title    mb-2 ">Draft Posts</h6>
+                        <h2 class="card-title mb-2">{{ $draftPosts ?? 0 }}</h2>
+                        <small class="">Unpublished</small>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card stat-card stat-card-orange h-100">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-white-50">Published Posts</h6>
-                        <h2 class="card-title text-white mb-2">{{ $publishedPosts ?? 0 }}</h2>
-                        <small class="text-white-50">Live content</small>
+                        <h6 class="card-title    mb-2 ">Published Posts</h6>
+                        <h2 class="card-title mb-2">{{ $publishedPosts ?? 0 }}</h2>
+                        <small class="">Live content</small>
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
 
 <!-- Bottom Section -->
 <div class="row">
-    <div class="col-md-6 mb-4">
+    <div class="col-md-16 mb-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -163,35 +163,6 @@
                             <span class="text-muted">Account Created</span>
                             <span class="fw-bold">{{ Auth::user()->created_at->format('M d, Y') }}</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="card-title mb-0">Quick Actions</h5>
-                    <i class="bi bi-lightning text-warning"></i>
-                </div>
-                <div class="quick-actions">
-                    <div class="d-grid gap-2">
-                        @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('dashboard.users') }}" class="btn btn-outline-primary">
-                            <i class="bi bi-people me-2"></i>Manage Users
-                        </a>
-                        <a href="{{ route('dashboard.categories') }}" class="btn btn-outline-secondary">
-                            <i class="bi bi-folder me-2"></i>Manage Categories
-                        </a>
-                        @endif
-                        <a href="{{ route('dashboard.posts') }}" class="btn btn-outline-info">
-                            <i class="bi bi-file-earmark-text me-2"></i>Manage Posts
-                        </a>
-                        <a href="{{ route('dashboard.tags') }}" class="btn btn-outline-success">
-                            <i class="bi bi-tags me-2"></i>Manage Tags
-                        </a>
                     </div>
                 </div>
             </div>

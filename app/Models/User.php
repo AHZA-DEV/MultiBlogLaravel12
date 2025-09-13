@@ -50,6 +50,15 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * The default attributes for the model.
+     *
+     * @var array<string, string>
+     */
+    protected $attributes = [
+        'role' => 'user',
+    ];
+
     // Relationships
     public function posts()
     {
