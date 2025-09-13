@@ -10,4 +10,15 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        origin: process.env.APP_URL,
+        hmr: {
+            host: process.env.APP_URL ? new URL(process.env.APP_URL).hostname : 'localhost',
+            protocol: 'wss',
+            clientPort: 443,
+        },
+    },
 });
