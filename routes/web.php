@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WelcomeController;
 
 // Public routes
-Route::get('/', function () {
-    return redirect('/login');
-});
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/post/{slug}', [WelcomeController::class, 'show'])->name('post.show');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
