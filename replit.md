@@ -54,7 +54,7 @@ Gaya komunikasi yang disukai: Bahasa sederhana sehari-hari dalam bahasa Indonesi
 2. User mengakses menu "Posts" (terbatas)
 3. User dapat melihat artikel yang dibuatnya
 4. User membuat artikel baru
-5. Artikel tersimpan sebagai draft (perlu approval admin)
+5. User dapat publish artikel langsung
 
 ### 2. Use Case Pendukung
 
@@ -153,15 +153,17 @@ Gaya komunikasi yang disukai: Bahasa sederhana sehari-hari dalam bahasa Indonesi
    ↓
 [Form artikel baru]
    ↓
-[Input: Judul, Konten, Kategori, Tags]
+[Input: Judul, Konten (Markdown), Kategori, Tags, Status]
    ↓
 [Validasi form] → Invalid → [Tampilkan error]
    ↓ Valid
-[Simpan sebagai draft]
+[Simpan artikel]
    ↓
-[Notifikasi: "Artikel perlu approval admin"]
-   ↓
-[END]
+[Status = Published?] → Ya → [Artikel muncul di public]
+   ↓ Tidak                  ↓
+[Simpan sebagai draft]     [Artikel berhasil disimpan]
+   ↓                       ↓
+[END]                     [END]
 ```
 
 ## Arsitektur Sistem
